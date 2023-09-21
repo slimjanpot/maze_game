@@ -15,6 +15,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserController {
 private final CreateUser createUser;
+private final UserManager userManager;
 
     @PostMapping()
     public ResponseEntity<CreateUserResponse> createUser(@RequestBody @Valid CreateUserRequest request) {
@@ -22,5 +23,19 @@ private final CreateUser createUser;
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @DeleteMapping("{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable int userId) {
+        userManager.deleteUser(userId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<User> getUser(@PathVariable(value = "id") final int id) {
+        final Optional<User> userOptional = userManager.getUser(id);
+        if (userOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(userOptional.get());
+    }
 
 }
