@@ -15,6 +15,13 @@ public class FakeUserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public boolean existsByUsername(String username) {
+        return this.savedUsers
+                .stream()
+                .anyMatch(userEntity -> userEntity.getUsername().equals(username));
+    }
+
+    @Override
     public UserEntity save(UserEntity user) {
         if (user.getId() == 0) {
             user.setId(NEXT_ID);
