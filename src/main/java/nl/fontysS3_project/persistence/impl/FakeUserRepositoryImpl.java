@@ -2,6 +2,7 @@ package nl.fontysS3_project.persistence.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import nl.fontysS3_project.persistence.UserRepository;
 import nl.fontysS3_project.persistence.entity.UserEntity;
@@ -12,6 +13,11 @@ public class FakeUserRepositoryImpl implements UserRepository {
 
     public FakeUserRepositoryImpl() {
         this.savedUsers = new ArrayList<>();
+    }
+
+    @Override
+    public void deleteById(int userId) {
+        this.savedUsers.removeIf(userEntity -> userEntity.getId() == userId);
     }
 
     @Override
@@ -29,5 +35,12 @@ public class FakeUserRepositoryImpl implements UserRepository {
             this.savedUsers.add(user);
         }
         return user;
+    }
+
+    @Override
+    public Optional<UserEntity> findById(int userId) {
+        return this.savedUsers.stream()
+                .filter(userEntity -> userEntity.getId() == userId)
+                .findFirst();
     }
 }
