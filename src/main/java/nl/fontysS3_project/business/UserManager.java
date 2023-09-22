@@ -1,12 +1,12 @@
 package nl.fontysS3_project.business;
 
-import nl.fontysS3_project.domain.CreateUserRequest;
-import nl.fontysS3_project.domain.CreateUserResponse;
-import nl.fontysS3_project.domain.User;
+import nl.fontysS3_project.domain.*;
 
 import java.util.Optional;
 
 public interface UserManager {
+    GetAllUsersResponse getUsers();
+
     CreateUserResponse createUser(CreateUserRequest request);
 
     void deleteUser(int userId);

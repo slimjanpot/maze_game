@@ -2,6 +2,7 @@ package nl.fontysS3_project.persistence;
 
 import nl.fontysS3_project.persistence.entity.UserEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository {
@@ -12,4 +13,8 @@ public interface UserRepository {
     boolean existsByUsername(String username);
 
     Optional<UserEntity> findById(int userId);
+
+    List<UserEntity> findAll();
+
+    int count();
 }

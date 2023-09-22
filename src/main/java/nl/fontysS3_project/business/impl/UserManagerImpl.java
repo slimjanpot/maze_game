@@ -6,12 +6,29 @@ import nl.fontysS3_project.business.UserManager;
 import nl.fontysS3_project.domain.*;
 import nl.fontysS3_project.persistence.UserRepository;
 import nl.fontysS3_project.persistence.entity.UserEntity;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
-
+@Service
 @AllArgsConstructor
 public class UserManagerImpl implements UserManager {
     private final UserRepository userRepository;
+
+    @Override
+    public GetAllUsersResponse getUsers() {
+        List<UserEntity> results;
+        results = userRepository.findAll();
+
+        final GetAllUsersResponse response = new GetAllUsersResponse();
+        List<User> user = results
+                .stream()
+                .map(UserConverter::convert)
+                .toList();
+        response.setStudents(user);
+
+        return response;
+    }
 
     @Override
     public CreateUserResponse createUser(CreateUserRequest request){
@@ -22,7 +39,6 @@ public class UserManagerImpl implements UserManager {
                 .userId(savedUser.getId())
                 .build();
     }
-
     private UserEntity saveNewUser(CreateUserRequest request) {
 
         UserEntity newUser = UserEntity.builder()

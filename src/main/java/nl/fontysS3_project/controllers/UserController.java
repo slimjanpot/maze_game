@@ -14,13 +14,17 @@ import java.util.Optional;
 @RequestMapping("/user")
 @AllArgsConstructor
 public class UserController {
-private final CreateUser createUser;
 private final UserManager userManager;
 
     @PostMapping()
     public ResponseEntity<CreateUserResponse> createUser(@RequestBody @Valid CreateUserRequest request) {
-        CreateUserResponse response = createUser.createUser(request);
+        CreateUserResponse response = userManager.createUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+    @GetMapping
+    public ResponseEntity<GetAllUsersResponse> getAllUsers() {
+        GetAllUsersResponse response = userManager.getUsers();
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("{userId}")
