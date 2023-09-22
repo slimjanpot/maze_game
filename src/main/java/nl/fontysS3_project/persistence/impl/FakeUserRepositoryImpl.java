@@ -32,7 +32,7 @@ public class FakeUserRepositoryImpl implements UserRepository {
 
     @Override
     public UserEntity save(UserEntity user) {
-        if (user.getId() == 0) {
+        if (user.getId() < 1) {
             user.setId(NEXT_ID);
             NEXT_ID++;
 
