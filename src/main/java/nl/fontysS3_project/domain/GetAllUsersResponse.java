@@ -11,5 +11,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetAllUsersResponse {
-    private List<User> students;
+    private List<User> users;
 }

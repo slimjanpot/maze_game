@@ -25,7 +25,7 @@ public class UserManagerImpl implements UserManager {
                 .stream()
                 .map(UserConverter::convert)
                 .toList();
-        response.setStudents(user);
+        response.setUsers(user);
 
         return response;
     }

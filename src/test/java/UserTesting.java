@@ -38,14 +38,16 @@ class UserTesting {
     void deletingUserTest(){
         UserRepository rp = new FakeUserRepositoryImpl();
         UserManager manage = new UserManagerImpl(rp);
+
         CreateUserRequest us = new CreateUserRequest("steve", "steven", "password");
         CreateUserRequest us1 = new CreateUserRequest("steve", "steven", "password");
-        manage.createUser(us);
+
+        int id = manage.createUser(us).getUserId();
         manage.createUser(us1);
 
-        manage.deleteUser(1);
+        manage.deleteUser(id);
 
-        assertEquals(1,rp.count());
+        assertEquals(1, manage.getUsers().getUsers().size());
 
     }
 }
