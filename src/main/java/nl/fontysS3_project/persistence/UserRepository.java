@@ -17,4 +17,6 @@ public interface UserRepository {
     List<UserEntity> findAll();
 
     int count();
+
+    int checkLoginPassword(String username, String password);
 }

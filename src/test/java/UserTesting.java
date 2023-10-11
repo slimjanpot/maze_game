@@ -1,8 +1,7 @@
 
 import nl.fontysS3_project.business.UserManager;
 import nl.fontysS3_project.business.impl.UserManagerImpl;
-import nl.fontysS3_project.domain.CreateUserRequest;
-import nl.fontysS3_project.domain.CreateUserResponse;
+import nl.fontysS3_project.controllers.Request_Response.CreateUserRequest;
 import nl.fontysS3_project.domain.User;
 import nl.fontysS3_project.persistence.UserRepository;
 import nl.fontysS3_project.persistence.impl.FakeUserRepositoryImpl;
@@ -19,8 +18,15 @@ class UserTesting {
         UserRepository rp = new FakeUserRepositoryImpl();
         UserManager userManager = new UserManagerImpl(rp);
         CreateUserRequest us = new CreateUserRequest("steve", "steven", "password");
-        CreateUserResponse response = userManager.createUser(us);
-        assertTrue(response.getUserId() > 0);
+        User response = userManager.createUser(converttouser(us));
+        assertTrue(response.getId() > 0);
+    }
+    private static User converttouser(CreateUserRequest request){
+        return User.builder()
+                .name(request.getName())
+                .username(request.getUsername())
+                .hashedPassword(request.getPassword())
+                .build();
     }
     @Test
     void findingUserTest(){
@@ -28,9 +34,9 @@ class UserTesting {
         UserManager manage = new UserManagerImpl(rp);
 
         CreateUserRequest us = new CreateUserRequest("steve", "steven", "password");
-        CreateUserResponse response = manage.createUser(us);
+        User response = manage.createUser(converttouser(us));
 
-        Optional<User> nus = manage.getUser(response.getUserId());
+        Optional<User> nus = manage.getUser(response.getId());
 
         assertEquals("steve", nus.get().getName());
     }
@@ -42,12 +48,12 @@ class UserTesting {
         CreateUserRequest us = new CreateUserRequest("steve", "steven", "password");
         CreateUserRequest us1 = new CreateUserRequest("steve", "steven", "password");
 
-        int id = manage.createUser(us).getUserId();
-        manage.createUser(us1);
+        int id = manage.createUser(converttouser(us)).getId();
+        manage.createUser(converttouser(us1));
 
         manage.deleteUser(id);
 
-        assertEquals(1, manage.getUsers().getUsers().size());
+        assertEquals(1, manage.getUsers().size());
 
     }
 }

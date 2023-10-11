@@ -2,12 +2,17 @@ package nl.fontysS3_project.controllers;
 
 import lombok.AllArgsConstructor;
 import nl.fontysS3_project.business.*;
+import nl.fontysS3_project.controllers.Request_Response.CreateUserRequest;
+import nl.fontysS3_project.controllers.Request_Response.CreateUserResponse;
+import nl.fontysS3_project.controllers.Request_Response.GetAllUsersResponse;
 import nl.fontysS3_project.domain.*;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,13 +23,13 @@ private final UserManager userManager;
 
     @PostMapping()
     public ResponseEntity<CreateUserResponse> createUser(@RequestBody @Valid CreateUserRequest request) {
-        CreateUserResponse response = userManager.createUser(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        User response = userManager.createUser(ConverterUser.converttouser(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ConverterUser.converttoresponse(response));
     }
     @GetMapping
     public ResponseEntity<GetAllUsersResponse> getAllUsers() {
-        GetAllUsersResponse response = userManager.getUsers();
-        return ResponseEntity.ok(response);
+        List<User> response = userManager.getUsers();
+        return ResponseEntity.ok(GetAllUsersResponse.builder().users(response).build());
     }
 
     @DeleteMapping("{userId}")
@@ -36,10 +41,7 @@ private final UserManager userManager;
     @GetMapping("{id}")
     public ResponseEntity<User> getUser(@PathVariable(value = "id") final int id) {
         final Optional<User> userOptional = userManager.getUser(id);
-        if (userOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(userOptional.get());
+        return userOptional.map(user -> ResponseEntity.ok().body(user)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 }
