@@ -1,9 +1,6 @@
 package nl.fontysS3_project.persistence.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import nl.fontysS3_project.persistence.UserRepository;
 import nl.fontysS3_project.persistence.entity.UserEntity;
@@ -55,5 +52,23 @@ public class FakeUserRepositoryImpl implements UserRepository {
     @Override
     public int count() {
         return this.savedUsers.size();
+    }
+
+    @Override
+    public int checkLoginPassword(String username, String password){
+        UserEntity foundUser = null;
+        for (UserEntity user : savedUsers) {
+            if (user.getUsername().equals(username)) {
+                foundUser = user;
+                break;
+            }
+        }
+        assert foundUser != null;
+        if (foundUser.getHashedPassword().equals(password)){
+            return foundUser.getId();
+        }
+        else{
+            return -1;
+        }
     }
 }

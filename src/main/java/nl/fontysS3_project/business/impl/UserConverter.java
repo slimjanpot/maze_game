@@ -7,12 +7,12 @@ final class UserConverter {
     private UserConverter() {
     }
 
-    public static User convert(UserEntity student) {
+    public static User convert(UserEntity user) {
         return User.builder()
-                .id(student.getId())
-                .name(student.getName())
-                .username(student.getUsername())
-                .hashedPassword(student.getHashedPassword())
+                .id(user.getId())
+                .name(user.getName())
+                .username(user.getUsername())
+                .hashedPassword(user.getHashedPassword())
                 .build();
     }
 }

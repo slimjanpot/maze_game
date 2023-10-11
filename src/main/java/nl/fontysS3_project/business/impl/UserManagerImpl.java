@@ -16,35 +16,31 @@ public class UserManagerImpl implements UserManager {
     private final UserRepository userRepository;
 
     @Override
-    public GetAllUsersResponse getUsers() {
+    public List<User> getUsers() {
         List<UserEntity> results;
         results = userRepository.findAll();
 
-        final GetAllUsersResponse response = new GetAllUsersResponse();
         List<User> user = results
                 .stream()
                 .map(UserConverter::convert)
                 .toList();
-        response.setUsers(user);
 
-        return response;
+        return user;
     }
 
     @Override
-    public CreateUserResponse createUser(CreateUserRequest request){
+    public User createUser(User request){
 
         UserEntity savedUser = saveNewUser(request);
 
-        return CreateUserResponse.builder()
-                .userId(savedUser.getId())
-                .build();
+        return UserConverter.convert(savedUser);
     }
-    private UserEntity saveNewUser(CreateUserRequest request) {
+    private UserEntity saveNewUser(User request) {
 
         UserEntity newUser = UserEntity.builder()
                 .name(request.getName())
                 .username(request.getUsername())
-                .hashedPassword(request.getPassword())
+                .hashedPassword(request.getHashedPassword())
                 .build();
         return userRepository.save(newUser);
     }
