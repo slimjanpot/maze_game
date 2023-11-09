@@ -40,7 +40,7 @@ public class UserManagerImpl implements UserManager {
         UserEntity newUser = UserEntity.builder()
                 .name(request.getName())
                 .username(request.getUsername())
-                .hashedPassword(request.getHashedPassword())
+                .password(request.getPassword())
                 .build();
         return userRepository.save(newUser);
     }

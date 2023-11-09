@@ -16,7 +16,7 @@ final class UserConverter {
                 .age(user.getAge())
                 .bio(user.getBio())
                 .location(user.getLocation())
-                .hashedPassword(user.getHashedPassword())
+                .password(user.getPassword())
                 .build();
     }
 }

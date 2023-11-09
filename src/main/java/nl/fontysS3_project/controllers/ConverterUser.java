@@ -11,7 +11,7 @@ final class ConverterUser {
         return User.builder()
                 .name(request.getName())
                 .username(request.getUsername())
-                .hashedPassword(request.getPassword())
+                .password(request.getPassword())
                 .build();
     }
     public static CreateUserResponse converttoresponse(User us){

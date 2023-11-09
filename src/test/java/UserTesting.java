@@ -4,18 +4,24 @@ import nl.fontysS3_project.business.impl.UserManagerImpl;
 import nl.fontysS3_project.controllers.Request_Response.CreateUserRequest;
 import nl.fontysS3_project.domain.User;
 import nl.fontysS3_project.persistence.UserRepository;
-import nl.fontysS3_project.persistence.impl.FakeUserRepositoryImpl;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(SpringExtension.class)
+@DataJpaTest
 class UserTesting {
+    @Autowired
+    private UserRepository rp;
     @Test
     void creatingUserTest(){
-        UserRepository rp = new FakeUserRepositoryImpl();
         UserManager userManager = new UserManagerImpl(rp);
         CreateUserRequest us = new CreateUserRequest("steve", "steven", "password");
         User response = userManager.createUser(converttouser(us));
@@ -25,12 +31,11 @@ class UserTesting {
         return User.builder()
                 .name(request.getName())
                 .username(request.getUsername())
-                .hashedPassword(request.getPassword())
+                .password(request.getPassword())
                 .build();
     }
     @Test
     void findingUserTest(){
-        UserRepository rp = new FakeUserRepositoryImpl();
         UserManager manage = new UserManagerImpl(rp);
 
         CreateUserRequest us = new CreateUserRequest("steve", "steven", "password");
@@ -42,7 +47,6 @@ class UserTesting {
     }
     @Test
     void deletingUserTest(){
-        UserRepository rp = new FakeUserRepositoryImpl();
         UserManager manage = new UserManagerImpl(rp);
 
         CreateUserRequest us = new CreateUserRequest("steve", "steven", "password");
