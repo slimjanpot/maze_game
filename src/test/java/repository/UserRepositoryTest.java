@@ -13,9 +13,5 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class UserRepositoryTest {
-    @Autowired
-    private EntityManager entityManager;
-    @Autowired
-    private UserRepository userRepository;
 
 }

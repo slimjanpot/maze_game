@@ -4,8 +4,11 @@ import nl.fontysS3_project.business.impl.UserManagerImpl;
 import nl.fontysS3_project.controllers.Request_Response.CreateUserRequest;
 import nl.fontysS3_project.domain.User;
 import nl.fontysS3_project.persistence.UserRepository;
+import nl.fontysS3_project.persistence.UserScoreRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -14,11 +17,14 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
+@ExtendWith(MockitoExtension.class)
 class UserTesting {
-    @Autowired
+    @Mock
     private UserRepository rp;
     @Test
     void creatingUserTest(){
