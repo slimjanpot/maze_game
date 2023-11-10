@@ -24,11 +24,11 @@ public class DatabaseDataInitializer {
                     .age(14)
                     .bio("I love coding")
                     .location("Where am I")
-                    .hashedPassword("Miky")
+                    .password("Miky")
                     .build());
 
-            userRepository.save(UserEntity.builder().id(2).name("Bob").username("Boby").hashedPassword("Boby").build());
-            userRepository.save(UserEntity.builder().id(3).name("Rose").username("Rosa").hashedPassword("Rose").build());
+            userRepository.save(UserEntity.builder().id(2).name("Bob").username("Boby").password("Boby").build());
+            userRepository.save(UserEntity.builder().id(3).name("Rose").username("Rosa").password("Rose").build());
         }
     }
 }

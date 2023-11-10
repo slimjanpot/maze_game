@@ -12,6 +12,6 @@ public class User {
     private int age;
     private String location;
     private String bio;
-    private String hashedPassword;
+    private String password;
 
 }

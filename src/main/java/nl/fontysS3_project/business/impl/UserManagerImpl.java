@@ -1,5 +1,6 @@
 package nl.fontysS3_project.business.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 import nl.fontysS3_project.business.UserManager;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class UserManagerImpl implements UserManager {
     private final UserRepository userRepository;
 
+    @Transactional
     @Override
     public List<User> getUsers() {
         List<UserEntity> results;
@@ -28,6 +30,7 @@ public class UserManagerImpl implements UserManager {
         return user;
     }
 
+    @Transactional
     @Override
     public User createUser(User request){
 
@@ -40,15 +43,18 @@ public class UserManagerImpl implements UserManager {
         UserEntity newUser = UserEntity.builder()
                 .name(request.getName())
                 .username(request.getUsername())
-                .hashedPassword(request.getHashedPassword())
+                .password(request.getPassword())
                 .build();
         return userRepository.save(newUser);
     }
+
+    @Transactional
     @Override
     public void deleteUser(int userId){
         this.userRepository.deleteById(userId);
     }
 
+    @Transactional
     @Override
     public Optional<User> getUser(int userId) {
         return userRepository.findById(userId).map(UserConverter::convert);

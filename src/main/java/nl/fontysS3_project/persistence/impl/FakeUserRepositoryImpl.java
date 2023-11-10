@@ -1,13 +1,8 @@
 package nl.fontysS3_project.persistence.impl;
 
-import java.util.*;
-
-import nl.fontysS3_project.persistence.UserRepository;
-import nl.fontysS3_project.persistence.entity.UserEntity;
-import org.springframework.stereotype.Repository;
-
+/*
 @Repository
-public class FakeUserRepositoryImpl implements UserRepository {
+public class FakeUserRepositoryImpl{
     private static int NEXT_ID = 1;
     private final List<UserEntity> savedUsers;
 
@@ -71,4 +66,4 @@ public class FakeUserRepositoryImpl implements UserRepository {
             return -1;
         }
     }
-}
+}*/
