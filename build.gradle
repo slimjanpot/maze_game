@@ -2,7 +2,9 @@ plugins {
     id 'org.springframework.boot' version '3.1.0'
     id 'io.spring.dependency-management' version '1.1.0'
     id 'java'
+    id "org.sonarqube" version "4.4.1.3373"
 }
+
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
@@ -37,6 +39,17 @@ dependencies {/*
     implementation 'org.flywaydb:flyway-mysql'
     implementation 'mysql:mysql-connector-java:8.0.33'
     testRuntimeOnly 'com.h2database:h2'
+
+}
+sonarqube {
+    properties {
+        property "sonar.projectKey", "MazeGame"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.login", "sqp_40849809dbef76880fe21f1055a75c6eb77ff287"
+
+        property "sonar.scm.disabled", true
+
+    }
 }
 
 test {
