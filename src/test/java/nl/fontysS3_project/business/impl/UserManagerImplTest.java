@@ -79,7 +79,7 @@ class UserManagerImplTest {
         assertEquals(result, initial);
         verify(userRepo).findAll();
     }
-
+/*
     @Test
     void createUser() {
     }
@@ -90,5 +90,5 @@ class UserManagerImplTest {
 
     @Test
     void getUser() {
-    }
+    }*/
 }
