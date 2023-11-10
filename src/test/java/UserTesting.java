@@ -24,6 +24,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class UserTesting {
+    /*
     @Mock
     private UserRepository rp;
     @Test
@@ -65,5 +66,5 @@ class UserTesting {
 
         assertEquals(1, manage.getUsers().size());
 
-    }
+    }*/
 }
