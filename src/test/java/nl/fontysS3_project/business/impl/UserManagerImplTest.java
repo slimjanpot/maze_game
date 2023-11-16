@@ -103,10 +103,10 @@ class UserManagerImplTest {
 
     @Test
     void deleteUser() {
-        long userId = 1;
+        int userId = 1;
         doNothing().when(userRepo).deleteById(userId);
 
-        userManager.deleteUser((int) userId);
+        userManager.deleteUser(userId);
 
         verify(userRepo).deleteById(userId);
     }
