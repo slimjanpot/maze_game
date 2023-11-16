@@ -12,5 +12,5 @@ public interface UserManager {
 
     void deleteUser(int userId);
 
-    Optional<User> getUser(int userId);
+    User getUser(long userId);
 }
