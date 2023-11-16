@@ -41,8 +41,8 @@ private final UserManager userManager;
 
     @GetMapping("{id}")
     public ResponseEntity<User> getUser(@PathVariable(value = "id") final int id) {
-        final Optional<User> userOptional = userManager.getUser(id);
-        return userOptional.map(user -> ResponseEntity.ok().body(user)).orElseGet(() -> ResponseEntity.notFound().build());
+        final User user = userManager.getUser(id);
+        return ResponseEntity.ok().body(user);
     }
 
 }

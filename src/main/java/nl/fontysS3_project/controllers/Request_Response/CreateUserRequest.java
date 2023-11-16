@@ -11,5 +11,12 @@ public class CreateUserRequest {
     @NonNull
     private String username;
     @NonNull
+    private String email;
+    private int age;
+    @NonNull
+    private String location;
+    @NonNull
+    private String bio;
+    @NonNull
     private String password;
 }

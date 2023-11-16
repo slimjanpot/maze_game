@@ -38,12 +38,17 @@ public class UserManagerImpl implements UserManager {
 
         return UserConverter.convert(savedUser);
     }
-    private UserEntity saveNewUser(User request) {
+    private UserEntity saveNewUser(User user) {
 
         UserEntity newUser = UserEntity.builder()
-                .name(request.getName())
-                .username(request.getUsername())
-                .password(request.getPassword())
+                .id(user.getId())
+                .name(user.getName())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .age(user.getAge())
+                .bio(user.getBio())
+                .location(user.getLocation())
+                .password(user.getPassword())
                 .build();
         return userRepository.save(newUser);
     }
@@ -56,7 +61,8 @@ public class UserManagerImpl implements UserManager {
 
     @Transactional
     @Override
-    public Optional<User> getUser(int userId) {
-        return userRepository.findById(userId).map(UserConverter::convert);
+    public User getUser(long userId) {
+        Optional<UserEntity> optionalentity = userRepository.findById(userId);
+        return optionalentity.map(UserConverter::convert).orElse(null);
     }
 }

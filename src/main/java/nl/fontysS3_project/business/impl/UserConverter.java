@@ -19,4 +19,16 @@ final class UserConverter {
                 .password(user.getPassword())
                 .build();
     }
+    public static UserEntity toUserEntitiy(User user){
+        return UserEntity.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .age(user.getAge())
+                .bio(user.getBio())
+                .location(user.getLocation())
+                .password(user.getPassword())
+                .build();
+    }
 }
