@@ -29,7 +29,7 @@ public class MapScoreManagerImpl implements MapScoreManager {
 
     @Override
     public MapScore usersmapScore(int id){
-        MapScoreEntity mse = mapRepo.findByUser(id);
+        MapScoreEntity mse = mapRepo.findByUser_id(id);
         return convertentity(mse);
     }
 

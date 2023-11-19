@@ -1,4 +1,4 @@
-CREATE TABLE `user_score`
+CREATE TABLE user_score
 (
     id              int         NOT NULL AUTO_INCREMENT,
     time_played     int         NOT NULL,

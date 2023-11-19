@@ -13,7 +13,7 @@ public class UserScoreManagerImpl {
     public final UserScoreRepository userScoreRepository;
 
     public UserScore getScore(int userid){
-        UserScoreEntity urse = userScoreRepository.findByUserid(userid);
+        UserScoreEntity urse = userScoreRepository.findByUser_id(userid);
 
         return convertuserScore(urse);
     }
