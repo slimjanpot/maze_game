@@ -16,6 +16,7 @@ final class ConverterUser {
                 .location(request.getLocation())
                 .bio(request.getBio())
                 .age(request.getAge())
+                .permission(0)
                 .build();
     }
     public static CreateUserResponse converttoresponse(User us){

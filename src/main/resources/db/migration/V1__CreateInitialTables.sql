@@ -8,6 +8,7 @@ CREATE TABLE users
     age        int         NOT NULL,
     location   varchar(50) NOT NULL,
     bio        varchar(50) NOT NULL,
+    permission int         default (0),
     PRIMARY KEY (id),
     UNIQUE (username),
     UNIQUE (email)
