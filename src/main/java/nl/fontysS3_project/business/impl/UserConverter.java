@@ -17,6 +17,7 @@ final class UserConverter {
                 .bio(user.getBio())
                 .location(user.getLocation())
                 .password(user.getPassword())
+                .permission(user.getPermission())
                 .build();
     }
     public static UserEntity toUserEntitiy(User user){
@@ -29,6 +30,7 @@ final class UserConverter {
                 .bio(user.getBio())
                 .location(user.getLocation())
                 .password(user.getPassword())
+                .permission(user.getPermission())
                 .build();
     }
 }

@@ -9,4 +9,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     void deleteById(int userId);
     Optional<UserEntity> findById(int userId);
     long count();
+
+    UserEntity findByUsername(String username);
 }

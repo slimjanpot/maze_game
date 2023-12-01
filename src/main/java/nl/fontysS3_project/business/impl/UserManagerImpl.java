@@ -7,6 +7,7 @@ import nl.fontysS3_project.business.UserManager;
 import nl.fontysS3_project.domain.*;
 import nl.fontysS3_project.persistence.UserRepository;
 import nl.fontysS3_project.persistence.entity.UserEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,12 +16,12 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserManagerImpl implements UserManager {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     @Override
     public List<User> getUsers() {
-        List<UserEntity> results;
-        results = userRepository.findAll();
+        List<UserEntity> results= userRepository.findAll();
 
         List<User> user = results
                 .stream()
@@ -33,7 +34,8 @@ public class UserManagerImpl implements UserManager {
     @Transactional
     @Override
     public User createUser(User request){
-
+        String encodededPass = passwordEncoder.encode(request.getPassword());
+        request.setPassword(encodededPass);
         UserEntity savedUser = saveNewUser(request);
 
         return UserConverter.convert(savedUser);

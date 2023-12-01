@@ -1,4 +1,4 @@
-CREATE TABLE `map_score`
+CREATE TABLE map_score
 (
     id              int         NOT NULL AUTO_INCREMENT,
     map             int         NOT NULL,
