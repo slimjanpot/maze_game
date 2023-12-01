@@ -1,2 +1,8 @@
 rootProject.name = 'Maze_Game'
 
+// settings.gradle
+buildCache {
+    local {
+        enabled = true
+    }
+}
