@@ -52,7 +52,8 @@ sonar {
         property "sonar.login", "sqp_40849809dbef76880fe21f1055a75c6eb77ff287"
         property "sonar.scm.disabled", true
         property "sonar.gradle.skipCompile", "true"
-        property "sonar.coverage.exclusions", "**/nl/fontysS3_project/business/"
+        property "sonar.sources", "src/main/java"
+        property "sonar.exclusions", "**/*.java, !nl/fontysS3_project/business/**"
     }
 }
 
