@@ -52,7 +52,6 @@ public class UserEntity {
     private String bio;
 
     @Column(name = "password")
-    @Length(max = 50)
     private String password;
 
     @Column(name = "permission")

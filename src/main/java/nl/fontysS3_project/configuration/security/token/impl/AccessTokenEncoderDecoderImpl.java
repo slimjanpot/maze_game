@@ -25,6 +25,8 @@ import java.util.Map;
 @Service
 public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, AccessTokenDecoder {
     private final Key key;
+    public static final String CLAIM_PERMISSION = "permission";
+    public static final String CLAIM_USER_ID = "userId";
 
     public AccessTokenEncoderDecoderImpl(@Value("${jwt.secret}") String secretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
@@ -34,10 +36,10 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
     @Override
     public String encode(AccessToken accessToken) {
         Map<String, Object> claimsMap = new HashMap<>();
-        claimsMap.put("permission", accessToken.getPermission());
+        claimsMap.put(CLAIM_PERMISSION, accessToken.getPermission());
 
         if (accessToken.getUserId() != null) {
-            claimsMap.put("userId", accessToken.getUserId());
+            claimsMap.put(CLAIM_USER_ID, accessToken.getUserId());
         }
 
         Instant now = Instant.now();
@@ -57,10 +59,10 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
                     .parseClaimsJws(accessTokenEncoded);
             Claims claims = jwt.getBody();
 
-            Long studentId = claims.get("userId", Long.class);
-            int permission = claims.get("permission", int.class);
+            Long userId = claims.get(CLAIM_USER_ID, Long.class);
+            int permission = claims.get(CLAIM_PERMISSION, Integer.class);
 
-            return new AccessTokenImpl(claims.getSubject(), studentId, permission);
+            return new AccessTokenImpl(claims.getSubject(), userId, permission);
         } catch (JwtException e) {
             throw new InvalidAccessTokenException(e.getMessage());
         }
