@@ -68,6 +68,7 @@ jacocoTestReport {
     dependsOn test
     reports {
         xml.required = true
+        xml.destination file("${buildDir}/jacoco/jacocoTestReport.xml")
     }
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
