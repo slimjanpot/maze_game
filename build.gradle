@@ -72,8 +72,8 @@ jacocoTestReport {
     }
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, include: [
-                    "nl/fontysS3_project/business/**/*.class"
+            fileTree(dir: it, exclude: [
+                    "**/configuration/*"
             ])
         }))
     }
