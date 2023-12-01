@@ -52,7 +52,7 @@ sonarqube {
         property "sonar.login", "sqp_40849809dbef76880fe21f1055a75c6eb77ff287"
 
         property "sonar.scm.disabled", true
-
+        property "sonar.gradle.skipCompile", "true"
     }
 }
 
@@ -72,8 +72,8 @@ jacocoTestReport {
     }
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: [
-                    "**/configuration/*"
+            fileTree(dir: it, include: [
+                    "nl/fontysS3_project/business/**/*.class"
             ])
         }))
     }
