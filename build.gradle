@@ -58,10 +58,6 @@ test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
 }
-tasks.named('test') {
-    useJUnitPlatform()
-    finalizedBy jacocoTestReport
-}
 jacocoTestReport {
     dependsOn test
     reports {

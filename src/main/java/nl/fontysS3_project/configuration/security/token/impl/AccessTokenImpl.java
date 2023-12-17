@@ -15,10 +15,26 @@ public class AccessTokenImpl implements AccessToken {
     private final Long userId;
     private final int permission;
 
-    public AccessTokenImpl(String subject, Long userId, int permission) {
+    public AccessTokenImpl(String subject, Long userId, String permission) {
         this.subject = subject;
         this.userId = userId;
-        this.permission = permission;
+        this.permission = mapPermissionToInt(permission);
+    }
+    @Override
+    public String getSubject() {
+        return subject;
+    }
+
+    @Override
+    public Long getUserId() {
+        return userId;
+    }
+    @Override
+    public String getPermission() {
+        return (permission == 0) ? "NORMAL" : "ADMIN";
+    }
+    private int mapPermissionToInt(String permission) {
+        return "ADMIN".equals(permission) ? 1 : 0;
     }
 
 }

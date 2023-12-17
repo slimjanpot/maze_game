@@ -15,6 +15,7 @@ public class DatabaseDataInitializer {
     private final PasswordEncoder passwordEncoder;
     private  UserRepository userRepository;
 
+
     @EventListener(ApplicationReadyEvent.class)
     public void populateDatabaseInitialDummyData() {
         String randompass = passwordEncoder.encode("Miky");

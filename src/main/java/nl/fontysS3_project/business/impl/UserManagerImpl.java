@@ -4,6 +4,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 import nl.fontysS3_project.business.UserManager;
+import nl.fontysS3_project.business.exception.UnauthorizedDataAccessException;
+import nl.fontysS3_project.configuration.security.token.AccessToken;
 import nl.fontysS3_project.domain.*;
 import nl.fontysS3_project.persistence.UserRepository;
 import nl.fontysS3_project.persistence.entity.UserEntity;
@@ -11,12 +13,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class UserManagerImpl implements UserManager {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private AccessToken requestAccessToken;
 
     @Transactional
     @Override
@@ -64,6 +68,11 @@ public class UserManagerImpl implements UserManager {
     @Transactional
     @Override
     public User getUser(long userId) {
+        if (!Objects.equals(requestAccessToken.getPermission(), "NORMAL")) {
+            if (requestAccessToken.getUserId() != userId) {
+                throw new UnauthorizedDataAccessException("STUDENT_ID_NOT_FROM_LOGGED_IN_USER");
+            }
+        }
         Optional<UserEntity> optionalentity = userRepository.findById(userId);
         return optionalentity.map(UserConverter::convert).orElse(null);
     }

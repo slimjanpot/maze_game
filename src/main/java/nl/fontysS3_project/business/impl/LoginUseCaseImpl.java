@@ -37,16 +37,18 @@ public class LoginUseCaseImpl implements LoginUseCase {
     }
 
     private boolean matchesPassword(String rawPassword, String encodedPassword) {
-        //return false;
-         return passwordEncoder.matches(rawPassword, encodedPassword);
+        return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
     private String generateAccessToken(UserEntity user) {
         Long studentId = (long) user.getId();
-        int permission = user.getPermission();
+        String permission = mapPermissionToString(user.getPermission());
 
         return accessTokenEncoder.encode(
                 new AccessTokenImpl(user.getUsername(), studentId, permission));
+    }
+    private String mapPermissionToString(int permission) {
+        return (permission == 0) ? "NORMAL" : "ADMIN";
     }
 
 }

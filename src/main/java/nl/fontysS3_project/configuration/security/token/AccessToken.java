@@ -7,5 +7,5 @@ public interface AccessToken {
 
     Long getUserId();
 
-    int getPermission();
+    String getPermission();
 }

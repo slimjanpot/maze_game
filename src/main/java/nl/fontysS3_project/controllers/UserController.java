@@ -1,5 +1,6 @@
 package nl.fontysS3_project.controllers;
 
+import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import nl.fontysS3_project.business.*;
 import nl.fontysS3_project.controllers.Request_Response.CreateUserRequest;
@@ -20,7 +21,7 @@ import java.util.Optional;
 @CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4173", "http://localhost:5173" })
 @AllArgsConstructor
 public class UserController {
-private final UserManager userManager;
+    private final UserManager userManager;
 
     @PostMapping()
     public ResponseEntity<CreateUserResponse> createUser(@RequestBody @Valid CreateUserRequest request) {
@@ -28,19 +29,22 @@ private final UserManager userManager;
         return ResponseEntity.status(HttpStatus.CREATED).body(ConverterUser.converttoresponse(response));
     }
     @GetMapping
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<GetAllUsersResponse> getAllUsers() {
         List<User> response = userManager.getUsers();
         return ResponseEntity.ok(GetAllUsersResponse.builder().users(response).build());
     }
 
     @DeleteMapping("{userId}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<Void> deleteUser(@PathVariable int userId) {
         userManager.deleteUser(userId);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<User> getUser(@PathVariable(value = "id") final int id) {
+    @RolesAllowed({"NORMAL", "ADMIN"})
+    public ResponseEntity<User> getUser(@PathVariable(value = "id") final long id) {
         final User user = userManager.getUser(id);
         return ResponseEntity.ok().body(user);
     }

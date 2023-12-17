@@ -16,6 +16,12 @@ public class MapScoreManagerImpl implements MapScoreManager {
     private final MapScoreRepository mapRepo;
 
     @Override
+    public MapScore createMapScore(MapScore request){
+        System.out.println("In manager: "+request);
+        return convertentity(mapRepo.save(convertmap(request)));
+    }
+
+    @Override
     public List<MapScore> getMapScores(){
         List<MapScoreEntity> result = mapRepo.findAll();
 
@@ -41,7 +47,7 @@ public class MapScoreManagerImpl implements MapScoreManager {
     private MapScoreEntity convertmap(MapScore ms){
         return MapScoreEntity.builder()
                 .map(ms.getMap())
-                .attempts(ms.getAttempts())
+                .time(ms.getTime())
                 .user(UserConverter.toUserEntitiy(ms.getUser()))
                 .build();
     }
@@ -49,9 +55,7 @@ public class MapScoreManagerImpl implements MapScoreManager {
         return MapScore.builder()
                 .id(mapent.getId())
                 .map(mapent.getMap())
-                .attempts(mapent.getAttempts())
                 .time(mapent.getTime())
-                .result(mapent.getResult())
                 .user(UserConverter.convert(mapent.getUser()))
                 .build();
     }
