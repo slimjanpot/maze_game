@@ -5,6 +5,8 @@ import nl.fontysS3_project.domain.MapScore;
 import java.util.List;
 
 public interface MapScoreManager {
+    MapScore createMapScore(MapScore request);
+
     List<MapScore> getMapScores();
 
     MapScore usersmapScore(int id);

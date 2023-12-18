@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserScore {
     private int id;
-    private int time;
-    private int attempts;
-    private int result;
+    private float time;
     private User user;
 }

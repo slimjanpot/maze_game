@@ -25,7 +25,7 @@ import java.util.Map;
 @Service
 public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, AccessTokenDecoder {
     private final Key key;
-    public static final String CLAIM_PERMISSION = "permission";
+    public static final String CLAIM_PERMISSION = "roles";
     public static final String CLAIM_USER_ID = "userId";
 
     public AccessTokenEncoderDecoderImpl(@Value("${jwt.secret}") String secretKey) {
@@ -36,11 +36,9 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
     @Override
     public String encode(AccessToken accessToken) {
         Map<String, Object> claimsMap = new HashMap<>();
-        claimsMap.put(CLAIM_PERMISSION, accessToken.getPermission());
 
-        if (accessToken.getUserId() != null) {
-            claimsMap.put(CLAIM_USER_ID, accessToken.getUserId());
-        }
+        claimsMap.put(CLAIM_PERMISSION, accessToken.getPermission());
+        claimsMap.put(CLAIM_USER_ID, accessToken.getUserId());
 
         Instant now = Instant.now();
         return Jwts.builder()
@@ -60,7 +58,9 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
             Claims claims = jwt.getBody();
 
             Long userId = claims.get(CLAIM_USER_ID, Long.class);
-            int permission = claims.get(CLAIM_PERMISSION, Integer.class);
+            String permission = claims.get(CLAIM_PERMISSION, String.class); // Change from Integer to String
+
+            int permissionValue = "ADMIN".equals(permission) ? 1 : 0;
 
             return new AccessTokenImpl(claims.getSubject(), userId, permission);
         } catch (JwtException e) {

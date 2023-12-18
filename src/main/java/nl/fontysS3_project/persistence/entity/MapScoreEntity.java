@@ -22,16 +22,8 @@ public class MapScoreEntity {
     private int map;
 
     @NotNull
-    @Column(name = "attempts")
-    private int attempts;
-
-    @NotNull
     @Column(name = "time")
-    private int time;
-
-    @NotNull
-    @Column(name = "result")
-    private int result;
+    private float time;
 
     @NotNull
     @ManyToOne

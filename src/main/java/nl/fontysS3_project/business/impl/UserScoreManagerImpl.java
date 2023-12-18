@@ -8,23 +8,31 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class UserScoreManagerImpl {
+public class UserScoreManagerImpl implements nl.fontysS3_project.business.UserScoreManager {
 
     public final UserScoreRepository userScoreRepository;
 
+    @Override
     public UserScore getScore(int userid){
         UserScoreEntity urse = userScoreRepository.findByUser_id(userid);
 
         return convertuserScore(urse);
     }
 
-    public UserScore convertuserScore(UserScoreEntity ent){
+    public void saveUserScore(UserScore userScore){userScoreRepository.save(convertTOEntity(userScore));}
+
+    private UserScore convertuserScore(UserScoreEntity ent){
+
         return UserScore.builder()
                 .id(ent.getId())
-                .attempts(ent.getAttempts())
-                .result(ent.getResult())
                 .time(ent.getTime())
                 .user(UserConverter.convert(ent.getUser()))
+                .build();
+    }
+    private UserScoreEntity convertTOEntity(UserScore ent){
+        return UserScoreEntity.builder()
+                .time(ent.getTime())
+                .user(UserConverter.toUserEntitiy(ent.getUser()))
                 .build();
     }
 }
