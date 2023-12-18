@@ -14,6 +14,7 @@ public class ConverterMapScore {
         return MapScore.builder()
                 .map(request.getMap())
                 .time(request.getTime())
+                .result(request.getResult())
                 .user(user)
                 .build();
     }

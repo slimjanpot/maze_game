@@ -48,6 +48,7 @@ public class MapScoreManagerImpl implements MapScoreManager {
         return MapScoreEntity.builder()
                 .map(ms.getMap())
                 .time(ms.getTime())
+                .result(ms.getResult())
                 .user(UserConverter.toUserEntitiy(ms.getUser()))
                 .build();
     }
@@ -56,6 +57,7 @@ public class MapScoreManagerImpl implements MapScoreManager {
                 .id(mapent.getId())
                 .map(mapent.getMap())
                 .time(mapent.getTime())
+                .result(mapent.getResult())
                 .user(UserConverter.convert(mapent.getUser()))
                 .build();
     }
