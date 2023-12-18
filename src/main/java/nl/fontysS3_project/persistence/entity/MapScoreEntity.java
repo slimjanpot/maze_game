@@ -26,6 +26,10 @@ public class MapScoreEntity {
     private float time;
 
     @NotNull
+    @Column(name = "result")
+    private int result;
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id")
     @EqualsAndHashCode.Exclude

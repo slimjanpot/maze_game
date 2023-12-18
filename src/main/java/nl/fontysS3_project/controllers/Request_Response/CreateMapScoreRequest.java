@@ -10,5 +10,6 @@ import nl.fontysS3_project.domain.User;
 public class CreateMapScoreRequest {
     private int map;
     private float time;
+    private int result;
     private int userid;
 }
