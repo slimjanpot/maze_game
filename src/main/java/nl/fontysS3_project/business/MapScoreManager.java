@@ -10,6 +10,4 @@ public interface MapScoreManager {
     List<MapScore> getMapScores();
 
     MapScore usersmapScore(int id);
-
-    void saveMapScores(MapScore mp);
 }
