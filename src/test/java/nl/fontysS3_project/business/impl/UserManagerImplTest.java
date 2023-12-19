@@ -1,5 +1,9 @@
 package nl.fontysS3_project.business.impl;
 
+import nl.fontysS3_project.business.LoginUseCase;
+import nl.fontysS3_project.business.exception.UnauthorizedDataAccessException;
+import nl.fontysS3_project.configuration.security.token.AccessToken;
+import nl.fontysS3_project.configuration.security.token.impl.AccessTokenImpl;
 import nl.fontysS3_project.domain.User;
 import nl.fontysS3_project.persistence.UserRepository;
 import nl.fontysS3_project.persistence.entity.UserEntity;
@@ -24,10 +28,10 @@ class UserManagerImplTest {
     private UserRepository userRepo;
     @Mock
     private PasswordEncoder passwordEncoder;
+    @Mock
+    private AccessToken accessToken;
     @InjectMocks
     private UserManagerImpl userManager;
-
-
 
     private final UserEntity userentity = UserEntity.builder()
                 .id(1)
@@ -38,6 +42,7 @@ class UserManagerImplTest {
                 .email("email")
                 .username("Steve")
                 .name("Steven")
+                .permission(0)
                 .build();
     private final UserEntity userentity2 = UserEntity.builder()
             .id(1)
@@ -48,6 +53,7 @@ class UserManagerImplTest {
             .email("email")
             .username("John")
             .name("Jonny")
+            .permission(1)
             .build();
     private final User user1 = User.builder()
             .id(1)
@@ -58,6 +64,7 @@ class UserManagerImplTest {
             .email("email")
             .username("Steve")
             .name("Steven")
+            .permission(0)
             .build();
 
     private final User user2 = User.builder()
@@ -69,6 +76,7 @@ class UserManagerImplTest {
             .email("email")
             .username("John")
             .name("Jonny")
+            .permission(1)
             .build();
     @Test
     void getUsers() {
@@ -144,9 +152,12 @@ class UserManagerImplTest {
     @Test
     void getUser() {
         long userId = 1;
+        String permission = "NORMAL";
+
+        when(accessToken.getPermission()).thenReturn(permission);
         when(userRepo.findById(userId)).thenReturn(Optional.of(userentity));
 
-        User result = userManager.getUser((int) userId);
+        User result = userManager.getUser(userId);
 
         verify(userRepo).findById(userId);
 
@@ -159,5 +170,19 @@ class UserManagerImplTest {
         assertEquals("Somewhere", result.getLocation());
         assertEquals("I love this", result.getBio());
         assertEquals("pass", result.getPassword());
+    }
+
+    @Test
+    void getUserBadCase() {
+        long userId = 1;
+        String permission = "Admin";
+        AccessToken requestAccessToken = new AccessTokenImpl("username", userId, permission);
+
+        when(accessToken.getPermission()).thenReturn(permission);
+
+        assertThrows(UnauthorizedDataAccessException.class, () -> {
+            userManager.getUser(userId);
+        }, "STUDENT_ID_NOT_FROM_LOGGED_IN_USER");
+        verify(userRepo, never()).findById(userId);
     }
 }

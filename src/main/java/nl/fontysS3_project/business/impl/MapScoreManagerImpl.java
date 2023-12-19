@@ -39,11 +39,6 @@ public class MapScoreManagerImpl implements MapScoreManager {
         return convertentity(mse);
     }
 
-    @Override
-    public void saveMapScores(MapScore mp){
-        mapRepo.save(convertmap(mp));
-    }
-
     private MapScoreEntity convertmap(MapScore ms){
         return MapScoreEntity.builder()
                 .map(ms.getMap())
