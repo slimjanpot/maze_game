@@ -1,4 +1,4 @@
-package nl.fontysS3_project.domain;
+package nl.fontysS3_project.controllers.Request_Response;
 
 import lombok.Data;
 
