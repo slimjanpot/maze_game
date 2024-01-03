@@ -3,7 +3,6 @@ package nl.fontysS3_project.business;
 import nl.fontysS3_project.domain.*;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserManager {
     List<User> getUsers();
@@ -13,4 +12,6 @@ public interface UserManager {
     void deleteUser(int userId);
 
     User getUser(long userId);
+
+    User updateUser(User user, int userId);
 }

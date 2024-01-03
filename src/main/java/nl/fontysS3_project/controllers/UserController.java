@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -28,6 +27,14 @@ public class UserController {
         User response = userManager.createUser(ConverterUser.converttouser(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(ConverterUser.converttoresponse(response));
     }
+
+    @PostMapping("/update/{userId}")
+    public ResponseEntity<User> updateUser(@PathVariable int userId, @RequestBody @Valid CreateUserRequest request){
+        System.out.println(request);
+        User response = userManager.updateUser(ConverterUser.converttouser(request), userId);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping
     @RolesAllowed({"ADMIN"})
     public ResponseEntity<GetAllUsersResponse> getAllUsers() {

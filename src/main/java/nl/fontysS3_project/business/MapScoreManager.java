@@ -10,4 +10,6 @@ public interface MapScoreManager {
     List<MapScore> getMapScores();
 
     MapScore usersmapScore(int id);
+
+    void deleteMapScore(int mapscoreId);
 }
