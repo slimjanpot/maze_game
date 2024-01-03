@@ -68,10 +68,8 @@ public class UserManagerImpl implements UserManager {
     @Transactional
     @Override
     public User getUser(long userId) {
-        if (!Objects.equals(requestAccessToken.getPermission(), "NORMAL")) {
-            if (requestAccessToken.getUserId() != userId) {
+        if (!Objects.equals(requestAccessToken.getPermission(), "NORMAL") && requestAccessToken.getUserId() != userId) {
                 throw new UnauthorizedDataAccessException("STUDENT_ID_NOT_FROM_LOGGED_IN_USER");
-            }
         }
         Optional<UserEntity> optionalentity = userRepository.findById(userId);
         return optionalentity.map(UserConverter::convert).orElse(null);

@@ -17,7 +17,6 @@ public class MapScoreManagerImpl implements MapScoreManager {
 
     @Override
     public MapScore createMapScore(MapScore request){
-        System.out.println("In manager: "+request);
         return convertentity(mapRepo.save(convertmap(request)));
     }
 
