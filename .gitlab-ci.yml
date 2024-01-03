@@ -21,3 +21,6 @@ sonar:
   stage: sonarqube
   script:
   - ./gradlew sonar
+  dependencies:
+    - build
+    - test
