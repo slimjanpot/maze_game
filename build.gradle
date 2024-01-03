@@ -56,6 +56,8 @@ sonar {
         property "sonar.gradle.skipCompile", true
         property "sonar.qualitygate.wait", true
         property "sonar.sources", "src/main/java/nl/fontysS3_project/business"
+        property "sonar.junit.reportPaths", "**/build/test-results/test/TEST-*.xml"
+        property "sonar.jacoco.reportPaths", "**/build/jacoco/test.exec"
     }
 }
 
