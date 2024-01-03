@@ -5,6 +5,7 @@ stages:
 
   - build
   - test
+  - sonarqube
 
 build:
   stage: build
@@ -19,7 +20,7 @@ test:
 sonar:
   stage: sonarqube
   script:
-    - ./gradlew sonar --info
+  - ./gradlew sonar --info
   dependencies:
     - build
     - test
