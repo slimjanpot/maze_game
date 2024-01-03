@@ -15,3 +15,11 @@ test:
   stage: test
   script:
   - ./gradlew test
+
+sonar:
+  stage: sonarqube
+  script:
+    - ./gradlew sonar --info
+  dependencies:
+    - build
+    - test
