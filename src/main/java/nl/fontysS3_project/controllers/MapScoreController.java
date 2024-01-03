@@ -1,6 +1,7 @@
 package nl.fontysS3_project.controllers;
 
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import nl.fontysS3_project.business.MapScoreManager;
@@ -32,5 +33,12 @@ public class MapScoreController {
         System.out.println("onverted one: "+ConverterMapScore.convertToMapSore(request,user));
         System.out.println("From manager: "+mapScore);
         return ResponseEntity.status(HttpStatus.CREATED).body(ConverterMapScore.convertToResponse(mapScore));
+    }
+
+    @DeleteMapping("{mapscoreuserId}")
+    @RolesAllowed({"ADMIN"})
+    public ResponseEntity<Void> deleteUserfromMapScore(@PathVariable int mapscoreuserId) {
+        mapScoreManager.deleteMapScore(mapscoreuserId);
+        return ResponseEntity.noContent().build();
     }
 }

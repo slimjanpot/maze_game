@@ -39,6 +39,11 @@ public class MapScoreManagerImpl implements MapScoreManager {
         return convertentity(mse);
     }
 
+    @Override
+    public void deleteMapScore(int mapscoreId) {//this is deleting all users specific mapscores
+        mapRepo.deleteUserfromMapScore(mapscoreId);
+    }
+
     private MapScoreEntity convertmap(MapScore ms){
         return MapScoreEntity.builder()
                 .map(ms.getMap())

@@ -76,4 +76,11 @@ public class UserManagerImpl implements UserManager {
         Optional<UserEntity> optionalentity = userRepository.findById(userId);
         return optionalentity.map(UserConverter::convert).orElse(null);
     }
+
+    @Override
+    public User updateUser(User user, int userId) {
+        userRepository.updateUserById((long) userId, UserConverter.toUserEntitiy(user));
+        UserEntity entity = userRepository.findByUsername(user.getUsername());
+        return UserConverter.convert(entity);
+    }
 }

@@ -24,4 +24,7 @@ public interface MapScoreRepository extends JpaRepository<MapScoreEntity, Long> 
 
     @Query("SELECT COUNT(e) FROM MapScoreEntity e WHERE e.user.id = ?1 AND e.map = ?2")
     int countTotalGamesPlayedMap(Long userId, Long mapId);
+
+    @Query("DELETE FROM MapScoreEntity e WHERE e.user.id = ?1")
+    void deleteUserfromMapScore(int userId);
 }
