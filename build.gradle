@@ -46,12 +46,13 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 
 }
-sonarqube {
+sonar {
     properties {
         property "sonar.projectKey", "MazeGame"
         property "sonar.host.url", "http://localhost:9000"
         property "sonar.login", "sqp_40849809dbef76880fe21f1055a75c6eb77ff287"
         property "sonar.scm.disabled", true
+        property "sonar.gradle.skipCompile", true
         property "sonar.qualitygate.wait", true
         property "sonar.sources", "src/main/java/nl/fontysS3_project/business"
     }
