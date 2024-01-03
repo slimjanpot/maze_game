@@ -20,7 +20,7 @@ test:
 sonar:
   stage: sonarqube
   script:
-  - ./gradlew sonar
+  - ./gradlew sonar --info
   dependencies:
     - build
     - test
