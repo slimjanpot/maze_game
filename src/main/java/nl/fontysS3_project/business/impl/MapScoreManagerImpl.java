@@ -1,5 +1,6 @@
 package nl.fontysS3_project.business.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import nl.fontysS3_project.business.MapScoreManager;
 import nl.fontysS3_project.domain.MapScore;
@@ -38,9 +39,17 @@ public class MapScoreManagerImpl implements MapScoreManager {
         return convertentity(mse);
     }
 
+    @Transactional
     @Override
     public void deleteMapScore(int mapscoreId) {//this is deleting all users specific mapscores
-        mapRepo.deleteUserfromMapScore(mapscoreId);
+        System.out.println(mapscoreId);
+        mapRepo.deleteUserfromMapScore((long) mapscoreId);
+    }
+
+    @Override
+    public List<MapScore> getScores(int userId) {
+        List<MapScoreEntity> mapent = mapRepo.findAllByUserId((long) userId);
+        return mapent.stream().map(this::convertentity).toList();
     }
 
     private MapScoreEntity convertmap(MapScore ms){

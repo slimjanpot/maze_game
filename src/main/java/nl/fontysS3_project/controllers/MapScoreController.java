@@ -8,6 +8,8 @@ import nl.fontysS3_project.business.MapScoreManager;
 import nl.fontysS3_project.business.UserManager;
 import nl.fontysS3_project.controllers.Request_Response.CreateMapScoreRequest;
 import nl.fontysS3_project.controllers.Request_Response.CreateMapScoreResponse;
+import nl.fontysS3_project.controllers.Request_Response.GetAllScoresResponse;
+import nl.fontysS3_project.controllers.Request_Response.GetAllUsersResponse;
 import nl.fontysS3_project.domain.MapScore;
 import nl.fontysS3_project.domain.User;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Console;
+import java.util.List;
 
 @RestController
 @RequestMapping("/map")
@@ -40,5 +43,11 @@ public class MapScoreController {
     public ResponseEntity<Void> deleteUserfromMapScore(@PathVariable int mapscoreuserId) {
         mapScoreManager.deleteMapScore(mapscoreuserId);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("{mapscoreuserId}")
+    @RolesAllowed({"ADMIN", "NORMAL"})
+    public ResponseEntity<GetAllScoresResponse> getAllScores(@PathVariable int mapscoreuserId) {
+        List<MapScore> response = mapScoreManager.getScores(mapscoreuserId);
+        return ResponseEntity.ok(GetAllScoresResponse.builder().scores(response).build());
     }
 }
