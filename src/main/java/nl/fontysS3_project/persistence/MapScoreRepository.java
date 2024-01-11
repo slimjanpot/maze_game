@@ -2,7 +2,11 @@ package nl.fontysS3_project.persistence;
 
 import nl.fontysS3_project.persistence.entity.MapScoreEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface MapScoreRepository extends JpaRepository<MapScoreEntity, Long> {
     MapScoreEntity findByUser_id(int id);
@@ -24,7 +28,10 @@ public interface MapScoreRepository extends JpaRepository<MapScoreEntity, Long> 
 
     @Query("SELECT COUNT(e) FROM MapScoreEntity e WHERE e.user.id = ?1 AND e.map = ?2")
     int countTotalGamesPlayedMap(Long userId, Long mapId);
+    @Modifying
+    @Query("DELETE FROM MapScoreEntity e WHERE e.user.id = :userId")
+    void deleteUserfromMapScore(@Param("userId") Long userId);
 
-    @Query("DELETE FROM MapScoreEntity e WHERE e.user.id = ?1")
-    void deleteUserfromMapScore(int userId);
+    @Query("Select e FROM MapScoreEntity e WHERE e.user.id = ?1")
+    List<MapScoreEntity> findAllByUserId(Long userId);
 }

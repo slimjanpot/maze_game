@@ -53,8 +53,6 @@ sonarqube {
         property "sonar.login", "sqp_40849809dbef76880fe21f1055a75c6eb77ff287"
 
         property "sonar.scm.disabled", true
-        property "sonar.gradle.skipCompile", true
-        property "sonar.qualitygate.wait", true
         property "sonar.sources", "src/main/java/nl/fontysS3_project/business"
         property "sonar.junit.reportPaths", "**/build/test-results/test/TEST-*.xml"
         property "sonar.jacoco.reportPaths", "**/build/jacoco/test.exec"
